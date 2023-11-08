@@ -1,4 +1,4 @@
-import {fetchTasksWorkerSaga, tasksReducer} from '../features/TodolistsList/tasks-reducer';
+import {fetchTasksWorkerSaga, removeTaskWorkerSaga, tasksReducer} from '../features/TodolistsList/tasks-reducer';
 import {todolistsReducer} from '../features/TodolistsList/todolists-reducer';
 import {AnyAction, applyMiddleware, combineReducers, legacy_createStore} from 'redux'
 import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
@@ -23,6 +23,8 @@ sagaMiddleware.run(rootWatcher)
 
 function* rootWatcher() {
     yield takeEvery("TASKS/FETCH-TASKS", fetchTasksWorkerSaga)
+    yield takeEvery("TASKS/REMOVE-TASKS", removeTaskWorkerSaga)
+
 }
 
 
