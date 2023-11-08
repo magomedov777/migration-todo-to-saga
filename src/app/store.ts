@@ -1,4 +1,4 @@
-import {tasksReducer} from '../features/TodolistsList/tasks-reducer';
+import {fetchTasksWorkerSaga, tasksReducer} from '../features/TodolistsList/tasks-reducer';
 import {todolistsReducer} from '../features/TodolistsList/todolists-reducer';
 import {AnyAction, applyMiddleware, combineReducers, legacy_createStore} from 'redux'
 import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
@@ -22,17 +22,10 @@ export type AppRootStateType = ReturnType<typeof rootReducer>
 sagaMiddleware.run(rootWatcher)
 
 function* rootWatcher() {
-    yield takeEvery("ACTIVATOR-ACTION-TYPE", rootWorker)
+    yield takeEvery("TASKS/FETCH-TASKS", fetchTasksWorkerSaga)
 }
 
-function* rootWorker() {
-    alert("rootWorker")
-}
 
-setTimeout(() => {
-    //@ts-ignore
-    store.dispatch({type: "ACTIVATOR-ACTION-TYPE"})
-}, 2000)
 
 
 export type AppThunkDispatch = ThunkDispatch<AppRootStateType, any, AnyAction>
