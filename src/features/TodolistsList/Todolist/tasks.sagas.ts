@@ -22,10 +22,12 @@ export function* removeTaskWorkerSaga(action: ReturnType<typeof removeTasks>){
 
 export const removeTasks = (taskId: string, todolistId: string) => ({type: "TASKS/REMOVE-TASKS", taskId, todolistId})
 
+
+
 export function* addTaskWorkerSaga(action: ReturnType<typeof addTasks>){
     yield put(setAppStatusAC('loading'))
     try{
-    const res: AxiosResponse = yield call(todolistsAPI.createTask, action.title, action.todolistId)
+    const res: AxiosResponse = yield call(todolistsAPI.createTask, action.todolistId, action.title)
             if (res.data.resultCode === 0) {
                 const task = res.data.data.item
                 yield put(addTaskAC(task))
@@ -33,7 +35,8 @@ export function* addTaskWorkerSaga(action: ReturnType<typeof addTasks>){
 
             } else {
                 yield handleServerAppErrorSaga(res.data);
-            }}catch(error: any){
+            }
+        }catch(error: any){
                 yield handleServerNetworkErrorSaga(error)
             }
         }
