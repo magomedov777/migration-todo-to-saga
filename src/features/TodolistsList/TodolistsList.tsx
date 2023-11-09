@@ -9,12 +9,13 @@ import {
     removeTodolistTC,
     TodolistDomainType
 } from './todolists-reducer'
-import { addTasks, removeTasks, TasksStateType, updateTaskTC } from './tasks-reducer'
+import { TasksStateType, updateTaskTC } from './tasks-reducer'
 import { TaskStatuses } from '../../api/todolists-api'
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import { AddItemForm } from '../../components/AddItemForm/AddItemForm'
 import { Todolist } from './Todolist/Todolist'
+import { addTasks, removeTasks } from './Todolist/tasks.sagas'
 
 
 export const TodolistsList: React.FC = () => {

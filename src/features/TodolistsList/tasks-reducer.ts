@@ -58,62 +58,11 @@ export const setTasksAC = (tasks: Array<TaskType>, todolistId: string) => ({
 
 // thunks to sagas
 
-export function* removeTaskWorkerSaga(action: ReturnType<typeof removeTasks>){
-    const res: AxiosResponse<ResponseType> = yield call(todolistsAPI.deleteTask, action.todolistId, action.taskId)
-           yield put(removeTaskAC(action.taskId, action.todolistId))
-}
-
-export const removeTasks = (taskId: string, todolistId: string) => ({type: "TASKS/REMOVE-TASKS", taskId, todolistId})
-
-
-export function* fetchTasksWorkerSaga(action: ReturnType<typeof fetchTasks>) {
-    yield put(setAppStatusAC('loading'))
-    const res: AxiosResponse<GetTasksResponse>  = yield call(todolistsAPI.getTasks, action.todolistId)
-    const tasks = res.data.items
-    yield put(setTasksAC(tasks, action.todolistId))
-    yield put(setAppStatusAC('succeeded'))
-}
-
-export const fetchTasks = (todolistId: string) => ({type: "TASKS/FETCH-TASKS", todolistId})
-
-
-
-
-export function* addTaskWorkerSaga(action: ReturnType<typeof addTasks>){
-    yield put(setAppStatusAC('loading'))
-    const res: AxiosResponse<ResponseType> = yield call(todolistsAPI.createTask, action.title, action.todolistId)
-            if (res.data.resultCode === 0) {
-                const task: any = res.data.data
-                yield put(addTaskAC(task))
-                yield put(setAppStatusAC('succeeded'))
-            } else {
-                handleServerAppError(res.data, yield put);
-            }
-        }
-
-export const addTasks = (title: string, todolistId: string) => ({type: "TASKS/ADD-TASKS", title, todolistId})
 
 
 
 
 
-// export const addTaskTC = (title: string, todolistId: string) => (dispatch: Dispatch<ActionsType | SetAppErrorActionType | SetAppStatusActionType>) => {
-//     dispatch(setAppStatusAC('loading'))
-//     todolistsAPI.createTask(todolistId, title)
-//         .then(res => {
-//             if (res.data.resultCode === 0) {
-//                 const task = res.data.data.item
-//                 const action = addTaskAC(task)
-//                 dispatch(action)
-//                 dispatch(setAppStatusAC('succeeded'))
-//             } else {
-//                 handleServerAppError(res.data, dispatch);
-//             }
-//         })
-//         .catch((error) => {
-//             handleServerNetworkError(error, dispatch)
-//         })
-// }
 export const updateTaskTC = (taskId: string, domainModel: UpdateDomainTaskModelType, todolistId: string) =>
     (dispatch: ThunkDispatch, getState: () => AppRootStateType) => {
         const state = getState()
