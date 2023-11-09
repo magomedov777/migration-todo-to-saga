@@ -5,7 +5,7 @@ import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
 import thunkMiddleware, {ThunkDispatch} from 'redux-thunk'
 import {appReducer} from './app-reducer'
 import createSagaMiddleware from 'redux-saga';
-import {takeEvery, put} from 'redux-saga/effects';
+import {takeEvery, put, all} from 'redux-saga/effects';
 import { addTaskWorkerSaga, fetchTasksWorkerSaga, removeTaskWorkerSaga, taskWatcherSaga } from '../features/TodolistsList/Todolist/tasks.sagas';
 
 
@@ -23,7 +23,7 @@ export type AppRootStateType = ReturnType<typeof rootReducer>
 sagaMiddleware.run(rootWatcher)
 
 function* rootWatcher() {
-    yield taskWatcherSaga()
+    yield all([taskWatcherSaga()])
 
 }
 

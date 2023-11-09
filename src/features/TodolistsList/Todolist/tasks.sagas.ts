@@ -3,7 +3,7 @@ import { setAppStatusAC } from "../../../app/app-reducer"
 import { addTaskAC, removeTaskAC, setTasksAC } from "../tasks-reducer"
 import { GetTasksResponse, ResponseType, todolistsAPI } from "../../../api/todolists-api"
 import { AxiosResponse } from "axios"
-import { handleServerAppError } from "../../../utils/error-utils"
+import {handleServerAppErrorSaga, handleServerNetworkErrorSaga } from "../../../utils/error-utils"
 
 export function* fetchTasksWorkerSaga(action: ReturnType<typeof fetchTasks>) {
     yield put(setAppStatusAC('loading'))
@@ -24,21 +24,35 @@ export const removeTasks = (taskId: string, todolistId: string) => ({type: "TASK
 
 export function* addTaskWorkerSaga(action: ReturnType<typeof addTasks>){
     yield put(setAppStatusAC('loading'))
-    const res: AxiosResponse<ResponseType> = yield call(todolistsAPI.createTask, action.title, action.todolistId)
+    try{
+    const res: AxiosResponse = yield call(todolistsAPI.createTask, action.title, action.todolistId)
             if (res.data.resultCode === 0) {
-                const task: any = res.data.data
+                const task = res.data.data.item
                 yield put(addTaskAC(task))
                 yield put(setAppStatusAC('succeeded'))
+
             } else {
-                handleServerAppError(res.data, yield put);
+                yield handleServerAppErrorSaga(res.data);
+            }}catch(error: any){
+                yield handleServerNetworkErrorSaga(error)
             }
         }
 
 export const addTasks = (title: string, todolistId: string) => ({type: "TASKS/ADD-TASKS", title, todolistId})
-
 
 export function* taskWatcherSaga() {
     yield takeEvery("TASKS/FETCH-TASKS", fetchTasksWorkerSaga)
     yield takeEvery("TASKS/REMOVE-TASKS", removeTaskWorkerSaga)
     yield takeEvery("TASKS/ADD-TASKS", addTaskWorkerSaga)
 }
+
+
+
+
+
+
+
+
+
+
+
