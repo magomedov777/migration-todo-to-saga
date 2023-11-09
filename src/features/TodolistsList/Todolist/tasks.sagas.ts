@@ -1,4 +1,4 @@
-import { call, put } from "redux-saga/effects"
+import { call, put, takeEvery } from "redux-saga/effects"
 import { setAppStatusAC } from "../../../app/app-reducer"
 import { addTaskAC, removeTaskAC, setTasksAC } from "../tasks-reducer"
 import { GetTasksResponse, ResponseType, todolistsAPI } from "../../../api/todolists-api"
@@ -35,3 +35,10 @@ export function* addTaskWorkerSaga(action: ReturnType<typeof addTasks>){
         }
 
 export const addTasks = (title: string, todolistId: string) => ({type: "TASKS/ADD-TASKS", title, todolistId})
+
+
+export function* taskWatcherSaga() {
+    yield takeEvery("TASKS/FETCH-TASKS", fetchTasksWorkerSaga)
+    yield takeEvery("TASKS/REMOVE-TASKS", removeTaskWorkerSaga)
+    yield takeEvery("TASKS/ADD-TASKS", addTaskWorkerSaga)
+}
