@@ -7,8 +7,8 @@ import { Delete } from '@mui/icons-material';
 import { Task } from './Task/Task'
 import { TaskStatuses, TaskType } from '../../../api/todolists-api'
 import { FilterValuesType, TodolistDomainType } from '../todolists-reducer'
-import { fetchTasks } from '../tasks-reducer'
 import { useAppDispatch } from "../../../app/store";
+import { fetchTasks } from './tasks.sagas';
 
 type PropsType = {
     todolist: TodolistDomainType

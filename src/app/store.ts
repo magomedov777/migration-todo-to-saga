@@ -6,7 +6,7 @@ import thunkMiddleware, {ThunkDispatch} from 'redux-thunk'
 import {appReducer} from './app-reducer'
 import createSagaMiddleware from 'redux-saga';
 import {takeEvery, put} from 'redux-saga/effects';
-import { addTaskWorkerSaga, fetchTasksWorkerSaga, removeTaskWorkerSaga } from '../features/TodolistsList/Todolist/tasks.sagas';
+import { addTaskWorkerSaga, fetchTasksWorkerSaga, removeTaskWorkerSaga, taskWatcherSaga } from '../features/TodolistsList/Todolist/tasks.sagas';
 
 
 const rootReducer = combineReducers({
@@ -23,9 +23,7 @@ export type AppRootStateType = ReturnType<typeof rootReducer>
 sagaMiddleware.run(rootWatcher)
 
 function* rootWatcher() {
-    yield takeEvery("TASKS/FETCH-TASKS", fetchTasksWorkerSaga)
-    yield takeEvery("TASKS/REMOVE-TASKS", removeTaskWorkerSaga)
-    yield takeEvery("TASKS/ADD-TASKS", addTaskWorkerSaga)
+    yield taskWatcherSaga()
 
 }
 
