@@ -3,9 +3,9 @@ import { GetTasksResponse, ResponseType, TaskPriorities, TaskStatuses, TaskType,
 import { Dispatch } from 'redux'
 import { AppRootStateType } from '../../app/store'
 import { SetAppErrorActionType, setAppStatusAC, SetAppStatusActionType } from '../../app/app-reducer'
-import { handleServerAppError, handleServerNetworkError } from '../../utils/error-utils'
 import { call, put } from 'redux-saga/effects'
 import { AxiosResponse } from 'axios'
+import { handleServerAppErrorSaga, handleServerNetworkErrorSaga } from '../../utils/error-utils'
 
 const initialState: TasksStateType = {}
 
@@ -89,11 +89,11 @@ export const updateTaskTC = (taskId: string, domainModel: UpdateDomainTaskModelT
                     const action = updateTaskAC(taskId, domainModel, todolistId)
                     dispatch(action)
                 } else {
-                    handleServerAppError(res.data, dispatch);
+                    handleServerAppErrorSaga(res.data);
                 }
             })
             .catch((error) => {
-                handleServerNetworkError(error, dispatch);
+                handleServerNetworkErrorSaga(error);
             })
     }
 
