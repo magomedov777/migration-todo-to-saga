@@ -3,8 +3,9 @@ import { setAppStatusAC } from "../../../app/app-reducer"
 import { UpdateDomainTaskModelType, addTaskAC, removeTaskAC, setTasksAC, updateTaskAC } from "../tasks-reducer"
 import { GetTasksResponse, ResponseType, UpdateTaskModelType, todolistsAPI } from "../../../api/todolists-api"
 import { AxiosResponse } from "axios"
-import {handleServerAppErrorSaga, handleServerNetworkErrorSaga } from "../../../utils/error-utils"
 import { AppRootStateType } from "../../../app/store"
+import { handleServerAppErrorSaga } from "../../../utils/handle-server-app-error-saga"
+import { handleServerNetworkErrorSaga } from "../../../utils/handle-server-network-error-saga"
 
 export function* fetchTasksWorkerSaga(action: ReturnType<typeof fetchTasks>) {
     yield put(setAppStatusAC('loading'))
