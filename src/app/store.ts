@@ -7,6 +7,7 @@ import {appReducer} from './app-reducer'
 import createSagaMiddleware from 'redux-saga';
 import {takeEvery, put, all} from 'redux-saga/effects';
 import { addTaskWorkerSaga, fetchTasksWorkerSaga, removeTaskWorkerSaga, taskWatcherSaga } from '../features/TodolistsList/Todolist/tasks.sagas';
+import { todolistsWatcherSaga } from '../features/TodolistsList/todolists.sagas';
 
 
 const rootReducer = combineReducers({
@@ -23,7 +24,7 @@ export type AppRootStateType = ReturnType<typeof rootReducer>
 sagaMiddleware.run(rootWatcher)
 
 function* rootWatcher() {
-    yield all([taskWatcherSaga()])
+    yield all([taskWatcherSaga(), todolistsWatcherSaga()])
 
 }
 
