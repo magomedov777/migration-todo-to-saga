@@ -4,7 +4,6 @@ import {
     addTodolistTC,
     changeTodolistFilterAC,
     changeTodolistTitleTC,
-    fetchTodolistsTC,
     FilterValuesType,
     removeTodolistTC,
     TodolistDomainType
@@ -16,6 +15,7 @@ import Paper from '@mui/material/Paper';
 import { AddItemForm } from '../../components/AddItemForm/AddItemForm'
 import { Todolist } from './Todolist/Todolist'
 import { addTasks, removeTasks, updateTasks } from './Todolist/tasks.sagas'
+import { fetchTodolists } from './todolists.sagas'
 
 
 export const TodolistsList: React.FC = () => {
@@ -24,8 +24,7 @@ export const TodolistsList: React.FC = () => {
     const dispatch = useAppDispatch()
 
     useEffect(() => {
-        const thunk = fetchTodolistsTC()
-        dispatch(thunk)
+        dispatch(fetchTodolists())
     }, [])
 
     const removeTask = useCallback(function (id: string, todolistId: string) {
