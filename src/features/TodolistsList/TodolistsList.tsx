@@ -5,7 +5,6 @@ import {
     changeTodolistFilterAC,
     changeTodolistTitleTC,
     FilterValuesType,
-    removeTodolistTC,
     TodolistDomainType
 } from './todolists-reducer'
 import { TasksStateType } from './tasks-reducer'
@@ -15,7 +14,7 @@ import Paper from '@mui/material/Paper';
 import { AddItemForm } from '../../components/AddItemForm/AddItemForm'
 import { Todolist } from './Todolist/Todolist'
 import { addTasks, removeTasks, updateTasks } from './Todolist/tasks.sagas'
-import { fetchTodolists } from './todolists.sagas'
+import { fetchTodolists, removeTodolistWS } from './todolists.sagas'
 
 
 export const TodolistsList: React.FC = () => {
@@ -52,8 +51,7 @@ export const TodolistsList: React.FC = () => {
     }, [])
 
     const removeTodolist = useCallback(function (id: string) {
-        const thunk = removeTodolistTC(id)
-        dispatch(thunk)
+        dispatch(removeTodolistWS(id))
     }, [])
 
     const changeTodolistTitle = useCallback(function (id: string, title: string) {

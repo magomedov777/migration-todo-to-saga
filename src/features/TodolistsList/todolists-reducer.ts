@@ -42,30 +42,7 @@ export const changeTodolistEntityStatusAC = (id: string, status: RequestStatusTy
 export const setTodolistsAC = (todolists: Array<TodolistType>) => ({type: 'SET-TODOLISTS', todolists} as const)
 
 // thunks
-// export const fetchTodolistsTC = () => {
-//     return (dispatch: ThunkDispatch) => {
-//         dispatch(setAppStatusAC('loading'))
-//         todolistsAPI.getTodolists()
-//             .then((res) => {
-//                 dispatch(setTodolistsAC(res.data))
-//                 dispatch(setAppStatusAC('succeeded'))
-//             })
-//     }
-// }
-export const removeTodolistTC = (todolistId: string) => {
-    return (dispatch: ThunkDispatch) => {
-        //изменим глобальный статус приложения, чтобы вверху полоса побежала
-        dispatch(setAppStatusAC('loading'))
-        //изменим статус конкретного тудулиста, чтобы он мог задизеблить что надо
-        dispatch(changeTodolistEntityStatusAC(todolistId, 'loading'))
-        todolistsAPI.deleteTodolist(todolistId)
-            .then((res) => {
-                dispatch(removeTodolistAC(todolistId))
-                //скажем глобально приложению, что асинхронная операция завершена
-                dispatch(setAppStatusAC('succeeded'))
-            })
-    }
-}
+
 export const addTodolistTC = (title: string) => {
     return (dispatch: ThunkDispatch) => {
         dispatch(setAppStatusAC('loading'))
