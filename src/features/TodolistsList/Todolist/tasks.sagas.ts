@@ -7,7 +7,7 @@ import { AppRootStateType } from "../../../app/store"
 import { handleServerAppErrorSaga } from "../../../utils/handle-server-app-error-saga"
 import { handleServerNetworkErrorSaga } from "../../../utils/handle-server-network-error-saga"
 
-export function* fetchTasksWorkerSaga(action: ReturnType<typeof fetchTasks>) {
+    export function* fetchTasksWorkerSaga(action: ReturnType<typeof fetchTasks>) {
     yield put(setAppStatusAC('loading'))
     const res: AxiosResponse<GetTasksResponse>  = yield call(todolistsAPI.getTasks, action.todolistId)
     const tasks = res.data.items
