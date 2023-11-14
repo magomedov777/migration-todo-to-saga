@@ -35,7 +35,12 @@ export function* addTodolistWorkerSaga(action: ReturnType<typeof addTodolistWS>)
 export const addTodolistWS = (title: string) => ({type: "TODOLISTS/ADD-TODOLISTS", title})
 
 
+export function* changeTodolistTitleWorkerSaga (action: ReturnType<typeof changeTodolistTitleWS>) {
+        const res: AxiosResponse<ResponseType> = yield call(todolistsAPI.updateTodolist, action.id, action.title)
+                yield put(changeTodolistTitleAC(action.id, action.title))
+    }
 
+export const changeTodolistTitleWS = (id: string, title: string) => ({type: "TODOLISTS/CHANGE-TODOLIST-TITLE", id, title})
 
 
 
@@ -43,6 +48,7 @@ export function* todolistsWatcherSaga() {
     yield takeEvery("TODOLISTS/FETCH-TODOLISTS", fetchTodolistsWorkerSaga)
     yield takeEvery("TODOLISTS/REMOVE-TODOLISTS", removeTodolistWorkerSaga)
     yield takeEvery("TODOLISTS/ADD-TODOLISTS", addTodolistWorkerSaga)
+    yield takeEvery("TODOLISTS/CHANGE-TODOLIST-TITLE", changeTodolistTitleWorkerSaga)
     
 
 }
