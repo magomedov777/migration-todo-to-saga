@@ -4,8 +4,7 @@ import { UpdateDomainTaskModelType, addTaskAC, removeTaskAC, setTasksAC, updateT
 import { GetTasksResponse, ResponseType, UpdateTaskModelType, todolistsAPI } from "../../../api/todolists-api"
 import { AxiosResponse } from "axios"
 import { AppRootStateType } from "../../../app/store"
-import { handleServerAppErrorSaga } from "../../../utils/handle-server-app-error-saga"
-import { handleServerNetworkErrorSaga } from "../../../utils/handle-server-network-error-saga"
+import { handleServerAppErrorSaga, handleServerNetworkErrorSaga } from "../../../utils"
 
     export function* fetchTasksWorkerSaga(action: ReturnType<typeof fetchTasks>) {
     yield put(setAppStatusAC('loading'))
