@@ -1,7 +1,8 @@
 import { call, put, takeEvery } from "redux-saga/effects"
 import { setAppStatusAC } from "../../app/app-reducer"
 import { TodolistType, todolistsAPI, ResponseType } from "../../api/todolists-api"
-import { changeTodolistEntityStatusAC, removeTodolistAC, setTodolistsAC } from "./todolists-reducer"
+import { addTodolistAC, changeTodolistEntityStatusAC, changeTodolistTitleAC, removeTodolistAC, setTodolistsAC } from "./todolists-reducer"
+import { AxiosResponse } from "axios"
 
 export function* fetchTodolistsWorkerSaga(action: ReturnType<typeof fetchTodolists>){
         yield put(setAppStatusAC('loading'))
@@ -11,7 +12,6 @@ export function* fetchTodolistsWorkerSaga(action: ReturnType<typeof fetchTodolis
     }
 
 export const fetchTodolists = () => ({type: "TODOLISTS/FETCH-TODOLISTS"})
-
 
 
 export function* removeTodolistWorkerSaga (action: ReturnType<typeof removeTodolistWS>) {
@@ -25,8 +25,24 @@ export function* removeTodolistWorkerSaga (action: ReturnType<typeof removeTodol
 export const removeTodolistWS = (todolistId: string) => ({type: "TODOLISTS/REMOVE-TODOLISTS", todolistId})
 
 
+export function* addTodolistWorkerSaga(action: ReturnType<typeof addTodolistWS>) {
+        yield put(setAppStatusAC('loading'))
+        const res: AxiosResponse = yield call(todolistsAPI.createTodolist, action.title)
+                yield put(addTodolistAC(res.data.data.item))
+                yield put(setAppStatusAC('succeeded'))
+    }
+
+export const addTodolistWS = (title: string) => ({type: "TODOLISTS/ADD-TODOLISTS", title})
+
+
+
+
+
+
 export function* todolistsWatcherSaga() {
     yield takeEvery("TODOLISTS/FETCH-TODOLISTS", fetchTodolistsWorkerSaga)
     yield takeEvery("TODOLISTS/REMOVE-TODOLISTS", removeTodolistWorkerSaga)
+    yield takeEvery("TODOLISTS/ADD-TODOLISTS", addTodolistWorkerSaga)
+    
 
 }
