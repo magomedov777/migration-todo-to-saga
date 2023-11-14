@@ -1,9 +1,7 @@
 import React, { useCallback, useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '../../app/store'
 import {
-    addTodolistTC,
     changeTodolistFilterAC,
-    changeTodolistTitleTC,
     FilterValuesType,
     TodolistDomainType
 } from './todolists-reducer'
@@ -14,7 +12,7 @@ import Paper from '@mui/material/Paper';
 import { AddItemForm } from '../../components/AddItemForm/AddItemForm'
 import { Todolist } from './Todolist/Todolist'
 import { addTasks, removeTasks, updateTasks } from './Todolist/tasks.sagas'
-import { fetchTodolists, removeTodolistWS } from './todolists.sagas'
+import { addTodolistWS, changeTodolistTitleWS, fetchTodolists, removeTodolistWS } from './todolists.sagas'
 
 
 export const TodolistsList: React.FC = () => {
@@ -55,12 +53,12 @@ export const TodolistsList: React.FC = () => {
     }, [])
 
     const changeTodolistTitle = useCallback(function (id: string, title: string) {
-        const thunk = changeTodolistTitleTC(id, title)
+        const thunk = changeTodolistTitleWS(id, title)
         dispatch(thunk)
     }, [])
 
     const addTodolist = useCallback((title: string) => {
-        const thunk = addTodolistTC(title)
+        const thunk = addTodolistWS(title)
         dispatch(thunk)
     }, [dispatch])
 
