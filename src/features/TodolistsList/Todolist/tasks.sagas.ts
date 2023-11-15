@@ -3,7 +3,7 @@ import { setAppStatusAC } from "../../../app/app-reducer"
 import { UpdateDomainTaskModelType, addTaskAC, removeTaskAC, setTasksAC, updateTaskAC } from "../tasks-reducer"
 import { GetTasksResponse, ResponseType, UpdateTaskModelType, todolistsAPI } from "../../../api/todolists-api"
 import { AxiosResponse } from "axios"
-import { AppRootStateType } from "../../../app/store"
+import { AppRootStateType } from "../../../state/store"
 import { handleServerAppErrorSaga, handleServerNetworkErrorSaga } from "../../../utils"
 
     export function* fetchTasksWorkerSaga(action: ReturnType<typeof fetchTasks>) {
