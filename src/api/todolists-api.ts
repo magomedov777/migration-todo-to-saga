@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from 'axios'
 import { GetTasksResponse, TaskType, UpdateTaskModelType } from './task-types';
 import { instance, ResponseType } from './common-api';
-
+import { TodolistType } from './todolist-types';
 
 
 export const todolistsAPI = {
@@ -31,12 +31,7 @@ export const todolistsAPI = {
     }
 }
 
-export type TodolistType = {
-    id: string
-    title: string
-    addedDate: string
-    order: number
-}
+
 
 
 
