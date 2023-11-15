@@ -1,18 +1,18 @@
 import React, { useCallback, useEffect } from 'react'
-import { useAppDispatch, useAppSelector } from '../../app/store'
+import { useAppDispatch, useAppSelector } from '../../state/store'
 import {
     changeTodolistFilterAC,
     FilterValuesType,
     TodolistDomainType
 } from './todolists-reducer'
-import { TasksStateType } from './tasks-reducer'
-import { TaskStatuses } from '../../api/todolists-api'
+import { TasksStateType } from './tasks-reducer';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import { AddItemForm } from '../../components/AddItemForm/AddItemForm'
 import { Todolist } from './Todolist/Todolist'
 import { addTasks, removeTasks, updateTasks } from './Todolist/tasks.sagas'
 import { addTodolistWS, changeTodolistTitleWS, fetchTodolists, removeTodolistWS } from './todolists.sagas'
+import { TaskStatuses } from '../../utils';
 
 
 export const TodolistsList: React.FC = () => {

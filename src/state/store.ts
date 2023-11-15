@@ -3,7 +3,7 @@ import {todolistsReducer} from '../features/TodolistsList/todolists-reducer';
 import {AnyAction, applyMiddleware, combineReducers, legacy_createStore} from 'redux'
 import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
 import thunkMiddleware, {ThunkDispatch} from 'redux-thunk'
-import {appReducer} from './app-reducer'
+import {appReducer} from '../app/app-reducer'
 import createSagaMiddleware from 'redux-saga';
 import {takeEvery, put, all} from 'redux-saga/effects';
 import { addTaskWorkerSaga, fetchTasksWorkerSaga, removeTaskWorkerSaga, taskWatcherSaga } from '../features/TodolistsList/Todolist/tasks.sagas';
