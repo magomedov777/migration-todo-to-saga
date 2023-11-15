@@ -1,14 +1,8 @@
 import axios, { AxiosResponse } from 'axios'
-import { TaskPriorities, TaskStatuses } from '../utils';
 import { GetTasksResponse, TaskType, UpdateTaskModelType } from './task-types';
+import { instance, ResponseType } from './common-api';
 
-const instance = axios.create({
-    baseURL: 'https://social-network.samuraijs.com/api/1.1/',
-    withCredentials: true,
-    headers: {
-        'API-KEY': '5fc11a34-7258-4926-8c00-91db4f940cfd'
-    }
-})
+
 
 export const todolistsAPI = {
     getTodolists() {
@@ -43,11 +37,6 @@ export type TodolistType = {
     addedDate: string
     order: number
 }
-export type ResponseType<D = {}> = {
-    resultCode: number
-    messages: Array<string>
-    fieldsErrors: Array<string>
-    data: D
-}
+
 
 
