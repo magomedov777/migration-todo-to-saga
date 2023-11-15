@@ -10,7 +10,7 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
 });
 
 
-export function ErrorSnackbar() {
+export const ErrorSnackbar = () => {
 
     const error = useAppSelector<string | null>(state => state.app.error)
 

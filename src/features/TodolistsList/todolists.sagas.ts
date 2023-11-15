@@ -1,8 +1,10 @@
 import { call, put, takeEvery } from "redux-saga/effects"
 import { setAppStatusAC } from "../../app/app-reducer"
-import { TodolistType, todolistsAPI, ResponseType } from "../../api/todolists-api"
+import { todolistsAPI } from "../../api/todolists-api"
 import { addTodolistAC, changeTodolistEntityStatusAC, changeTodolistTitleAC, removeTodolistAC, setTodolistsAC } from "./todolists-reducer"
 import { AxiosResponse } from "axios"
+import { ResponseType } from "../../api/common-api"
+import { TodolistType } from "../../api/todolist-types"
 
 export function* fetchTodolistsWorkerSaga(action: ReturnType<typeof fetchTodolists>){
         yield put(setAppStatusAC('loading'))
@@ -12,7 +14,6 @@ export function* fetchTodolistsWorkerSaga(action: ReturnType<typeof fetchTodolis
     }
 
 export const fetchTodolists = () => ({type: "TODOLISTS/FETCH-TODOLISTS"})
-
 
 export function* removeTodolistWorkerSaga (action: ReturnType<typeof removeTodolistWS>) {
         yield put(setAppStatusAC('loading'))
