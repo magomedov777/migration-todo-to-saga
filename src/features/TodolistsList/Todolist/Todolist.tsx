@@ -36,9 +36,10 @@ export const Todolist: FC<Props> = memo(({ todolist, tasks, changeFilter, addTas
         addTask(title, todolist.id)
     }, [addTask, todolist.id])
 
-    const removeTodolistCallback = () => {
+    const removeTodolistCallback = useCallback(() => {
         removeTodolist(todolist.id)
-    }
+    }, [todolist.id])
+
     const changeTodolistTitleCallback = useCallback((title: string) => {
         changeTodolistTitle(todolist.id, title)
     }, [todolist.id, changeTodolistTitle])

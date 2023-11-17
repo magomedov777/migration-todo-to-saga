@@ -76,22 +76,11 @@ export function* updateTaskWorkerSaga(
 
 export const updateTasks = (taskId: string, domainModel: UpdateDomainTaskModelType, todolistId: string) => ({type: "TASKS/UPDATE-TASKS", taskId, domainModel, todolistId})
 
-
-
-
-
-
-
-
-
-
-
 export function* taskWatcherSaga() {
     yield takeEvery("TASKS/FETCH-TASKS", fetchTasksWorkerSaga)
     yield takeEvery("TASKS/REMOVE-TASKS", removeTaskWorkerSaga)
     yield takeEvery("TASKS/ADD-TASKS", addTaskWorkerSaga)
     yield takeEvery("TASKS/UPDATE-TASKS", updateTaskWorkerSaga)
-
 }
 
 
