@@ -9,8 +9,8 @@ import { TodolistType } from "../../api/todolist-types"
 export function* fetchTodolistsWorkerSaga(action: ReturnType<typeof fetchTodolists>){
         yield put(setAppStatusAC('loading'))
         const res: ResponseType<TodolistType[]> = yield call(todolistsAPI.getTodolists)
-                yield put(setTodolistsAC(res.data))
-                yield put(setAppStatusAC('succeeded'))
+        yield put(setTodolistsAC(res.data))
+        yield put(setAppStatusAC('succeeded'))
     }
 
 export const fetchTodolists = () => ({type: "TODOLISTS/FETCH-TODOLISTS"})
@@ -50,6 +50,4 @@ export function* todolistsWatcherSaga() {
     yield takeEvery("TODOLISTS/REMOVE-TODOLISTS", removeTodolistWorkerSaga)
     yield takeEvery("TODOLISTS/ADD-TODOLISTS", addTodolistWorkerSaga)
     yield takeEvery("TODOLISTS/CHANGE-TODOLIST-TITLE", changeTodolistTitleWorkerSaga)
-    
-
 }
