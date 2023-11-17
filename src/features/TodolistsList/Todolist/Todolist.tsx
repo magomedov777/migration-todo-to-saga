@@ -48,7 +48,6 @@ export const Todolist: FC<Props> = memo(({ todolist, tasks, changeFilter, addTas
     const onActiveClickHandler = useCallback(() => changeFilter('active', todolist.id), [todolist.id, changeFilter])
     const onCompletedClickHandler = useCallback(() => changeFilter('completed', todolist.id), [todolist.id, changeFilter])
 
-
     let tasksForTodolist = tasks
 
     if (todolist.filter === 'active') {
