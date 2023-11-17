@@ -1,12 +1,13 @@
 import { call, put, select, takeEvery } from "redux-saga/effects"
 import { setAppStatusAC } from "../../../app/app-reducer"
 import { UpdateDomainTaskModelType, addTaskAC, removeTaskAC, setTasksAC, updateTaskAC } from "../tasks-reducer"
-import { GetTasksResponse, ResponseType, UpdateTaskModelType, todolistsAPI } from "../../../api/todolists-api"
+import { todolistsAPI } from "../../../api/todolists-api"
 import { AxiosResponse } from "axios"
 import { AppRootStateType } from "../../../state/store"
 import { handleServerAppErrorSaga, handleServerNetworkErrorSaga } from "../../../utils"
+import { GetTasksResponse, UpdateTaskModelType } from "../../../api/task-types"
 
-    export function* fetchTasksWorkerSaga(action: ReturnType<typeof fetchTasks>) {
+export function* fetchTasksWorkerSaga(action: ReturnType<typeof fetchTasks>) {
     yield put(setAppStatusAC('loading'))
     const res: AxiosResponse<GetTasksResponse>  = yield call(todolistsAPI.getTasks, action.todolistId)
     const tasks = res.data.items
