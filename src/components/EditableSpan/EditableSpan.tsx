@@ -14,10 +14,10 @@ export const EditableSpan: FC<Props> = memo(({ value, onChange }) => {
         setEditMode(true);
         setTitle(value);
     }, [])
-    const activateViewMode = () => {
+    const activateViewMode = useCallback(() => {
         setEditMode(false);
         onChange(title);
-    }
+    }, [])
     const changeTitle = (e: ChangeEvent<HTMLInputElement>) => {
         setTitle(e.currentTarget.value)
     }
