@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, memo, useState } from 'react';
+import React, { ChangeEvent, FC, memo, useCallback, useState } from 'react';
 import TextField from '@mui/material/TextField';
 
 type Props = {
@@ -7,14 +7,13 @@ type Props = {
 }
 
 export const EditableSpan: FC<Props> = memo(({ value, onChange }) => {
-    console.log('EditableSpan called');
     let [editMode, setEditMode] = useState(false);
     let [title, setTitle] = useState(value);
 
-    const activateEditMode = () => {
+    const activateEditMode = useCallback(() => {
         setEditMode(true);
         setTitle(value);
-    }
+    }, [])
     const activateViewMode = () => {
         setEditMode(false);
         onChange(title);
